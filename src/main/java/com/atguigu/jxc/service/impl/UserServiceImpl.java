@@ -42,9 +42,10 @@ public class UserServiceImpl implements UserService {
     public ServiceVO login(UserLogin userLogin, HttpSession session) {
         try {
             // 校验图片验证码是否正确
-            if(!userLogin.getImageCode().toUpperCase().equals(session.getAttribute("checkcode"))){
+            //todo:为开发便捷，取消验证码验证步骤
+            /*if(!userLogin.getImageCode().toUpperCase().equals(session.getAttribute("checkcode"))){
                 return new ServiceVO(ErrorCode.VERIFY_CODE_ERROR_CODE, ErrorCode.VERIFY_CODE_ERROR_MESS);
-            }
+            }*/
 
             //开始进行登录校验
             Subject subject = SecurityUtils.getSubject();

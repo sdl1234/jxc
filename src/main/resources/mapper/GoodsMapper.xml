@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.jxc.dao.GoodsDao">
+
+    <resultMap id="GoodsListInventoryResultMap" type="com.atguigu.jxc.entity.Goods">
+
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER"></result>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"></result>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"></result>
+        <result column="inventory_quantity" property="inventoryQuantity" jdbcType="INTEGER"></result>
+        <result column="last_purchasing_price" property="lastPurchasingPrice" jdbcType="FLOAT"></result>
+        <result column="min_num" property="minNum" jdbcType="INTEGER"></result>
+        <result column="goods_model" property="goodsModel" jdbcType="VARCHAR"></result>
+        <result column="goods_producer" property="goodsProducer" jdbcType="VARCHAR"></result>
+        <result column="purchasing_price" property="purchasingPrice" jdbcType="FLOAT"></result>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"></result>
+        <result column="selling_price" property="sellingPrice" jdbcType="FLOAT"></result>
+        <result column="state" property="state" jdbcType="INTEGER"></result>
+        <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR"></result>
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER"></result>
+        <result column="goods_type_name" property="goodsTypeName" jdbcType="VARCHAR"></result>
+        <result column="sale_total" property="saleTotal" jdbcType="INTEGER"></result>
+
+    </resultMap>
+
+    <select id="queryGoodsListInventory" resultMap="GoodsListInventoryResultMap">
+        SELECT
+            q.goods_id,
+            q.goods_code,
+            q.goods_name,
+            q.inventory_quantity,
+            q.last_purchasing_price,
+            q.min_num,
+            q.goods_model,
+            q.goods_producer,
+            q.purchasing_price,
+            q.remarks,
+            q.selling_price,
+            q.state,
+            q.goods_unit,
+            q.goods_type_id,
+            w.goods_type_name,
+            e.goods_num AS sale_total
+
+        FROM t_goods as q
+                 LEFT JOIN t_goods_type AS w
+                           ON q.goods_type_id = w.goods_type_id
+                 LEFT JOIN t_sale_list_goods AS e
+                           ON q.goods_id = e.goods_id
+    </select>
+</mapper>
